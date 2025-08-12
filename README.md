@@ -3,7 +3,8 @@
 
 -------------
 
-REQUIREMENTS: 
+## REQUIREMENTS: 
+
 The goal is to implement a to-do list where it is possible to:
 - Register activity in the to-do list.
     The task must have:
@@ -18,7 +19,7 @@ The goal is to implement a to-do list where it is possible to:
  
 ------------
 
-EXTRAS:
+## EXTRAS:
 - Allow the user to start a task that already has time recorded previously.
     The new time should be added to the previous time and registered separately.
 - When displaying the task, show additionally:
