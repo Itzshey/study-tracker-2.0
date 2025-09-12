@@ -14,7 +14,7 @@ void menu()
     cout << "[1] View task list \n";
     cout << "[2] View pending tasks \n";
     cout << "[3] View completed tasks \n";
-    cout << "[4] View completed tasks \n";
+    cout << "[4] Close app \n";
 }
 
 int obtainOption()
@@ -33,6 +33,52 @@ int obtainOption()
 }
 
 void viewAllTasks()
+{
+    string filePath;
+
+    cout << "Please type the file path (ex: C:\\study_tracker\\studytracker.txt):\n)";
+    cin.ignore();
+    getline(cin, filePath);
+
+    filesystem::path path(filePath);
+    filesystem::path directory = path.parent_path();
+
+    if(!filesystem::exists(directory))
+    {
+        cout << "Error: the directory informed does not exist. Please verify the path. \n";
+        return;
+    }
+
+    fstream myFile;
+
+    myFile.open(filePath, ios::app);
+
+    if(myFile.is_open())
+    {
+        // Fzr dps leitura com JSON
+    }
+    else
+    {
+        cout << "Error oppening file. Please verify the path provided.\n";
+        return;
+    }
+
+    cout << "Would you like to add a new task? [Y/N]";
+    string newTask;
+    cin >> newTask;
+
+    if (newTask == "Y" || "y" || "yes")
+    {
+        createNewTask();
+    }
+    else
+    {
+        return;
+    }
+    
+}
+
+void createNewTask()
 {
 
 }
