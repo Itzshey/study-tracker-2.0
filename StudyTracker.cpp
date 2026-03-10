@@ -11,10 +11,11 @@ using namespace std;
 
 void menu() 
 {
-    cout << "[1] View task list \n";
-    cout << "[2] View pending tasks \n";
-    cout << "[3] View completed tasks \n";
-    cout << "[4] Close app \n";
+    cout << "[1] View task list; \n";
+    cout << "[2] View pending tasks; \n";
+    cout << "[3] View completed tasks; \n";
+    cout << "[4] Update file path; \n";
+    cout << "[5] Close app.\n";
 }
 
 int obtainOption()
@@ -32,22 +33,35 @@ int obtainOption()
     return option;
 }
 
-void viewAllTasks()
+string getFilePath()
 {
     string filePath;
-
-    cout << "Please type the file path (ex: C:\\study_tracker\\studytracker.txt):\n)";
-    cin.ignore();
+    cout << "Please type the file path (ex: C:\\study_tracker\\studytracker.txt):\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, filePath);
 
     filesystem::path path(filePath);
     filesystem::path directory = path.parent_path();
 
-    if(!filesystem::exists(directory))
+    while (!filesystem::exists(directory))
     {
-        cout << "Error: the directory informed does not exist. Please verify the path. \n";
-        return;
+        cout << "Error: the directory informed does not exist. Please verify the path.\n";
+        cout << "Type again:\n";
+        getline(cin, filePath);
+
+        path = filePath;
+        directory = path.parent_path();
+    
     }
+    
+
+    return filePath;
+}
+
+void viewAllTasks()
+{
+    
+    string filePath = getFilePath(); 
 
     fstream myFile;
 
@@ -69,7 +83,7 @@ void viewAllTasks()
 
     if (newTask == "Y" || "y" || "yes")
     {
-        createNewTask();
+        //createNewTask();
     }
     else
     {
@@ -84,21 +98,25 @@ void createNewTask()
 }
 
 void viewPendingTasks()
-{
-
+{ 
+ 
 }
 
 void viewCompletedTasks()
 {
-
+   
 }
 
 int main()
 {
+   cout << "Welcome to study tracker! \n";
+
+   string filePath = getFilePath();
+
    menu ();
    int optionSelected = obtainOption();
 
-   while (optionSelected != 4)
+   while (optionSelected != 5)
    {
         switch (optionSelected)
         {
@@ -114,6 +132,9 @@ int main()
              viewCompletedTasks();
             break;
         
+        case 4:
+            getFilePath();
+            break;
         
         default:
              cout << "Invalid input. Please insert a valid option. \n";
